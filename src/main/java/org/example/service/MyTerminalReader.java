@@ -12,7 +12,7 @@ public class MyTerminalReader {
         try {
             terminalLine = READER.readLine();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new Error(e);
         }
         return terminalLine;
     }
@@ -20,7 +20,7 @@ public class MyTerminalReader {
         try {
             READER.close();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new Error(e);
         }
     }
 }

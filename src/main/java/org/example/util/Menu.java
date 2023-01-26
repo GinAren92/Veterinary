@@ -22,7 +22,7 @@ public class Menu {
             }
             System.out.println("Do you want to continue the program? y/n");
             String continueTheProgramAnswer = MyTerminalReader.readLine();
-            if(OptionController.checkcontinueTheProgramAnswer(continueTheProgramAnswer)) continueLoop = false;
+            if(OptionController.checkContinueTheProgramAnswer(continueTheProgramAnswer)) continueLoop = false;
         }
     }
 }

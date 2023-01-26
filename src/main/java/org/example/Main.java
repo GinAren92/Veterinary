@@ -1,7 +1,10 @@
 package org.example;
 
+import org.example.util.Menu;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        final Menu menu = new Menu();
+        menu.getStart();
     }
 }

@@ -1,6 +1,6 @@
 package org.example.service;
 
-public class DataProvider {
+public class AnimalDataProvider {
 
     public static String provideName(){
         String name = null;
@@ -15,7 +15,7 @@ public class DataProvider {
         return ownerName;
     }
     public static String provideBreed(){
-        String breed = null;
+        String breed = "";
         System.out.println("Specify the breed: ");
         breed = MyTerminalReader.readLine().strip();
         return breed;

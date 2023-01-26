@@ -3,71 +3,52 @@ package org.example.util;
 import java.time.LocalDateTime;
 
 public class Animal {
-    private String name;
-    private String owner;
-    private String breed;
-    private int age;
-    private String issue;
-    private LocalDateTime date;
+    private final String name;
+    private final String owner;
+    private final String breed;
+    private final int age;
+    private final String issue;
+    private final LocalDateTime date;
 
     public Animal(){
-
+        name=null;
+        owner=null;
+        breed=null;
+        age=0;
+        issue=null;
+        date=null;
     }
 
     public Animal(String name, String owner,String breed,int age,String issue){
-        setName(name);
-        setAge(age);
-        setBreed(breed);
-        setIssue(issue);
-        setOwner(owner);
-        setDate(LocalDateTime.now());
+        this.date = LocalDateTime.now();
+        this.name = name;
+        this.owner = owner;
+        this.age = age;
+        this.breed = breed;
+        this.issue = issue;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getOwner() {
         return owner;
-    }
-
-    public void setOwner(String owner) {
-        this.owner = owner;
     }
 
     public String getBreed() {
         return breed;
     }
 
-    public void setBreed(String breed) {
-        this.breed = breed;
-    }
-
     public int getAge() {
         return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
     }
 
     public String getIssue() {
         return issue;
     }
 
-    public void setIssue(String issue) {
-        this.issue = issue;
-    }
-
     public LocalDateTime getDate() {
         return date;
-    }
-
-    public void setDate(LocalDateTime date) {
-        this.date = date;
     }
 }
