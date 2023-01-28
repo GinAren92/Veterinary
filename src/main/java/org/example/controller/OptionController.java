@@ -1,9 +1,13 @@
 package org.example.controller;
 
 import org.example.cache.AnimalStore;
+import org.example.service.AnimalDataProvider;
 import org.example.service.AnimalService;
 import org.example.service.MyPrinter;
 import org.example.service.MyTerminalReader;
+import org.example.util.Animal;
+
+import java.util.List;
 
 public class OptionController {
 
@@ -30,8 +34,7 @@ public class OptionController {
         }else return false;
     }
 
-    public static void review(){
-        AnimalStore animalStore = new AnimalStore();
+    public static void review(AnimalStore animalStore){
         MyPrinter.getOnTerminal(animalStore.getAnimalStore());
         System.out.println("Would you like to filter the results? y/n");
         String filterAnswer = MyTerminalReader.readLine().toLowerCase().strip();
@@ -41,13 +44,37 @@ public class OptionController {
             if(OptionController.checkFiltrOption(filterBy)) {
                 switch (filterBy) {
                     case "owner" -> {
-                        MyPrinter.getOnTerminal(AnimalService.getAnimalByOwner(animalStore.getAnimalStore(), filterBy));
+                        do{
+                            System.out.println("Enter the name of the owner: ");
+                            String ownerName = MyTerminalReader.readLine();
+                            if(AnimalService.checkProvidedOwner(animalStore.getAnimalStore(),ownerName)) {
+                                List<Animal> tmpListByOwner =AnimalService.getAnimalByOwner(animalStore.getAnimalStore(), ownerName);
+                                MyPrinter.getOnTerminal(tmpListByOwner);
+                                break;
+                            }else System.out.println("The specified parameter does not exist in the database.");
+                        }while(true);
                     }
                     case "breed" -> {
-                        MyPrinter.getOnTerminal(AnimalService.getAnimalByBreed(animalStore.getAnimalStore(), filterBy));
+                        do{
+                            System.out.println("Enter the name of the breed");
+                            String breedName = MyTerminalReader.readLine();
+                            if(AnimalService.checkProvidedBreed(animalStore.getAnimalStore(),breedName)) {
+                                List<Animal> tmpListByBreed = AnimalService.getAnimalByBreed(animalStore.getAnimalStore(), breedName);
+                                MyPrinter.getOnTerminal(tmpListByBreed);
+                                break;
+                            }else System.out.println("The specified parameter does not exist in the database.");
+                        }while(true);
                     }
                     case "date" -> {
-                        MyPrinter.getOnTerminal(AnimalService.getAnimalByDate(animalStore.getAnimalStore(), filterBy));
+                        do{
+                            System.out.println("Podaj datę w formacie dd-MM-yyyy:");
+                            String provideDate = MyTerminalReader.readLine();
+                            if(AnimalService.checkProvidedDate(animalStore.getAnimalStore(),provideDate)) {
+                                List<Animal> tmpListByDate = AnimalService.getAnimalByDate(animalStore.getAnimalStore(), provideDate);
+                                MyPrinter.getOnTerminal(tmpListByDate);
+                                break;
+                            }else System.out.println("The specified parameter does not exist in the database.");
+                        }while(true);
                     }
                 }
             }
@@ -60,7 +87,13 @@ public class OptionController {
         return false;
     }
 
-    public static void add(){
-
+    public static void add(AnimalStore animalStore){
+        String animalName = AnimalDataProvider.provideName();
+        String ownerName = AnimalDataProvider.provideOwnerName();
+        String animalBreed = AnimalDataProvider.provideBreed();
+        int animalAge = AnimalDataProvider.provideAge();
+        String animalIssue = AnimalDataProvider.provideIssue();
+        Animal newAnimal = new Animal(animalName,ownerName,animalBreed,animalAge,animalIssue);
+        animalStore.addAnimal(newAnimal);
     }
 }

@@ -1,11 +1,13 @@
 package org.example.util;
 
+import org.example.cache.AnimalStore;
 import org.example.controller.OptionController;
 import org.example.service.MyTerminalReader;
 
 public class Menu {
 
     public void getStart(){
+        AnimalStore animalStore = new AnimalStore();
         boolean continueLoop = true;
         while(continueLoop){
             System.out.println("Would you like to review the list of patients or add a new one? review/add");
@@ -13,10 +15,10 @@ public class Menu {
             if(OptionController.checkReviewOrAddProvided(reviewOrAdd)){
                 switch(reviewOrAdd){
                     case "review" -> {
-                        OptionController.review();
+                        OptionController.review(animalStore);
                     }
                     case "add" -> {
-                        OptionController.add();
+                        OptionController.add(animalStore);
                     }
                 }
             }
@@ -24,5 +26,6 @@ public class Menu {
             String continueTheProgramAnswer = MyTerminalReader.readLine();
             if(OptionController.checkContinueTheProgramAnswer(continueTheProgramAnswer)) continueLoop = false;
         }
+        animalStore.saveToFile();
     }
 }

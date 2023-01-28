@@ -24,20 +24,25 @@ public class ReadFromFile {
 
     public static List<Animal> readFromFile(){
         try {
-            Set<String> listOfOwners = OBJECT_MAPPER.readValue(new File("owners.json"), new TypeReference<Set<String>>(){});
             List<Animal> listNotSortedPatients = new ArrayList<>();
-            if(listOfOwners.size()>0){
-                listOfOwners.forEach((owner)->{
-                    File filePath = new File("Owners/"+owner+"/animals.json");
-                    if(filePath.exists()){
-                        try {
-                            List<Animal> currentOwnerAnimals = OBJECT_MAPPER.readValue(filePath, new TypeReference<List<Animal>>() {});
-                            listNotSortedPatients.addAll(currentOwnerAnimals);
-                        } catch (IOException e) {
-                            throw new Error(e);
-                        }
-                    }
+            File ownersFile = new File("owners.json");
+            if(ownersFile.exists()) {
+                Set<String> listOfOwners = OBJECT_MAPPER.readValue(ownersFile, new TypeReference<Set<String>>() {
                 });
+                if (listOfOwners.size() > 0) {
+                    listOfOwners.forEach((owner) -> {
+                        File filePath = new File("Owners/" + owner + "/animals.json");
+                        if (filePath.exists()) {
+                            try {
+                                List<Animal> currentOwnerAnimals = OBJECT_MAPPER.readValue(filePath, new TypeReference<List<Animal>>() {
+                                });
+                                listNotSortedPatients.addAll(currentOwnerAnimals);
+                            } catch (IOException e) {
+                                throw new Error(e);
+                            }
+                        }
+                    });
+                }
             }
             listNotSortedPatients.sort(Comparator.comparing(animal -> animal.getDate()));
             return listNotSortedPatients;

@@ -19,7 +19,11 @@ public class AnimalStore {
     public List<Animal> getAnimalStore() {
         return animalStore;
     }
+    public void addAnimal(Animal animal){
+        animalStore.add(animal);
+    }
     public void saveToFile(){
         WriteToFile.saveToFile(this.getAnimalStore());
     }
+
 }

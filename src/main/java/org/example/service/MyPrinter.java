@@ -17,6 +17,7 @@ public class MyPrinter {
                 System.out.println("Age: "+animal.getAge());
                 System.out.println("Issue: "+animal.getIssue());
                 System.out.println("Date: "+animal.getDate().format(format));
+                System.out.println("_________________________________________________-");
             });
         }catch(Exception e){
             throw new Error(e);
