@@ -3,6 +3,7 @@ package org.example.util;
 import org.example.cache.AnimalStore;
 import org.example.controller.OptionController;
 import org.example.service.MyTerminalReader;
+import org.example.service.OptionService;
 
 public class Menu {
 
@@ -12,7 +13,7 @@ public class Menu {
         while(continueLoop){
             System.out.println("Would you like to review the list of patients or add a new one? review/add");
             String reviewOrAdd = MyTerminalReader.readLine();
-            if(OptionController.checkReviewOrAddProvided(reviewOrAdd)){
+            if(OptionService.checkReviewOrAddProvided(reviewOrAdd)){
                 switch(reviewOrAdd){
                     case "review" -> {
                         OptionController.review(animalStore);
@@ -24,8 +25,13 @@ public class Menu {
             }
             System.out.println("Do you want to continue the program? y/n");
             String continueTheProgramAnswer = MyTerminalReader.readLine();
-            if(OptionController.checkContinueTheProgramAnswer(continueTheProgramAnswer)) continueLoop = false;
+            if(OptionService.checkContinueTheProgramAnswer(continueTheProgramAnswer)) continueLoop = false;
         }
         animalStore.saveToFile();
+        try{
+            MyTerminalReader.closeReader();
+        }catch (Exception e){
+            throw new Error(e);
+        }
     }
 }
